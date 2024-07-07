@@ -30,9 +30,11 @@ If your porting target has OpenGL, you can use gl renderer in ref_gl folder.
 
 ### software renderer
 Implement functions beginning with name SWimp_ (look at port_soft_sdl.c for SDL port).
+![software renderer](screenshots/soft.png)
 
 ### gl renderer
 Implement functions beginning with name GLimp_ (look at port_gl_sdl.c for SDL port).
+![gl renderer](screenshots/gl2.png)
 
 ### main loop
 At start, call Quake2_Init().
