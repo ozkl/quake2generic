@@ -369,6 +369,21 @@ int ConvertToQuakeKey(unsigned int keysym)
   return key;        
 }
 
+int QG_Milliseconds(void)
+{
+	static int		base;
+	static qboolean	initialized = false;
+
+	if (!initialized)
+	{	// let base retain 16 bits of effectively random data
+		base = timeGetTime() & 0xffff0000;
+		initialized = true;
+	}
+	int t = timeGetTime() - base;
+
+	return t;
+}
+
 
 void QG_GetMouseDiff(int* dx, int* dy)
 {
