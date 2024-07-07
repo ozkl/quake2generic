@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{b47d7d9b-5a7f-46d4-9db5-74dbe53ccf4d}</ProjectGuid>
+    <RootNamespace>quake2</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>quake2-soft-sdl</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\SDL2-2.30.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;Winmm.lib;x86/SDL2.lib;x86/SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\SDL2-2.30.4\lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\SDL2-2.30.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;Winmm.lib;x86/SDL2.lib;x86/SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\SDL2-2.30.4\lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;GAME_HARD_LINKED;REF_HARD_LINKED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\SDL2-2.30.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;Winmm.lib;x64/SDL2.lib;x64/SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\SDL2-2.30.4\lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>false</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;GAME_HARD_LINKED;REF_HARD_LINKED;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>..\SDL2-2.30.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalDependencies>wsock32.lib;Winmm.lib;x64/SDL2.lib;x64/SDL2main.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>..\SDL2-2.30.4\lib</AdditionalLibraryDirectories>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\client\cl_cin.c" />
+    <ClCompile Include="..\client\cl_ents.c" />
+    <ClCompile Include="..\client\cl_fx.c" />
+    <ClCompile Include="..\client\cl_input.c" />
+    <ClCompile Include="..\client\cl_inv.c" />
+    <ClCompile Include="..\client\cl_main.c" />
+    <ClCompile Include="..\client\cl_newfx.c" />
+    <ClCompile Include="..\client\cl_parse.c" />
+    <ClCompile Include="..\client\cl_pred.c" />
+    <ClCompile Include="..\client\cl_scrn.c" />
+    <ClCompile Include="..\client\cl_tent.c" />
+    <ClCompile Include="..\client\cl_view.c" />
+    <ClCompile Include="..\client\console.c" />
+    <ClCompile Include="..\client\keys.c" />
+    <ClCompile Include="..\client\menu.c" />
+    <ClCompile Include="..\client\qmenu.c" />
+    <ClCompile Include="..\client\snd_dma.c" />
+    <ClCompile Include="..\client\snd_mem.c" />
+    <ClCompile Include="..\client\snd_mix.c" />
+    <ClCompile Include="..\game\g_ai.c" />
+    <ClCompile Include="..\game\g_chase.c" />
+    <ClCompile Include="..\game\g_cmds.c" />
+    <ClCompile Include="..\game\g_combat.c" />
+    <ClCompile Include="..\game\g_func.c" />
+    <ClCompile Include="..\game\g_items.c" />
+    <ClCompile Include="..\game\g_main.c" />
+    <ClCompile Include="..\game\g_misc.c" />
+    <ClCompile Include="..\game\g_monster.c" />
+    <ClCompile Include="..\game\g_phys.c" />
+    <ClCompile Include="..\game\g_save.c" />
+    <ClCompile Include="..\game\g_spawn.c" />
+    <ClCompile Include="..\game\g_svcmds.c" />
+    <ClCompile Include="..\game\g_target.c" />
+    <ClCompile Include="..\game\g_trigger.c" />
+    <ClCompile Include="..\game\g_turret.c" />
+    <ClCompile Include="..\game\g_utils.c" />
+    <ClCompile Include="..\game\g_weapon.c" />
+    <ClCompile Include="..\game\m_actor.c" />
+    <ClCompile Include="..\game\m_berserk.c" />
+    <ClCompile Include="..\game\m_boss2.c" />
+    <ClCompile Include="..\game\m_boss3.c" />
+    <ClCompile Include="..\game\m_boss31.c" />
+    <ClCompile Include="..\game\m_boss32.c" />
+    <ClCompile Include="..\game\m_brain.c" />
+    <ClCompile Include="..\game\m_chick.c" />
+    <ClCompile Include="..\game\m_flash.c" />
+    <ClCompile Include="..\game\m_flipper.c" />
+    <ClCompile Include="..\game\m_float.c" />
+    <ClCompile Include="..\game\m_flyer.c" />
+    <ClCompile Include="..\game\m_gladiator.c" />
+    <ClCompile Include="..\game\m_gunner.c" />
+    <ClCompile Include="..\game\m_hover.c" />
+    <ClCompile Include="..\game\m_infantry.c" />
+    <ClCompile Include="..\game\m_insane.c" />
+    <ClCompile Include="..\game\m_medic.c" />
+    <ClCompile Include="..\game\m_move.c" />
+    <ClCompile Include="..\game\m_mutant.c" />
+    <ClCompile Include="..\game\m_parasite.c" />
+    <ClCompile Include="..\game\m_soldier.c" />
+    <ClCompile Include="..\game\m_supertank.c" />
+    <ClCompile Include="..\game\m_tank.c" />
+    <ClCompile Include="..\game\p_client.c" />
+    <ClCompile Include="..\game\p_hud.c" />
+    <ClCompile Include="..\game\p_trail.c" />
+    <ClCompile Include="..\game\p_view.c" />
+    <ClCompile Include="..\game\p_weapon.c" />
+    <ClCompile Include="..\game\q_shared.c" />
+    <ClCompile Include="..\other\glob.c" />
+    <ClCompile Include="..\other\q_hunk.c" />
+    <ClCompile Include="..\other\q_system.c" />
+    <ClCompile Include="..\other\vid_lib.c" />
+    <ClCompile Include="..\other\vid_menu.c" />
+    <ClCompile Include="..\net\net_win.c" />
+    <ClCompile Include="..\null\cd_null.c" />
+    <ClCompile Include="..\port_platform_win.c" />
+    <ClCompile Include="..\port_soft_sdl.c" />
+    <ClCompile Include="..\qcommon\cmd.c" />
+    <ClCompile Include="..\qcommon\cmodel.c" />
+    <ClCompile Include="..\qcommon\common.c" />
+    <ClCompile Include="..\qcommon\crc.c" />
+    <ClCompile Include="..\qcommon\cvar.c" />
+    <ClCompile Include="..\qcommon\files.c" />
+    <ClCompile Include="..\qcommon\md4.c" />
+    <ClCompile Include="..\qcommon\net_chan.c" />
+    <ClCompile Include="..\qcommon\pmove.c" />
+    <ClCompile Include="..\ref_soft\r_aclip.c" />
+    <ClCompile Include="..\ref_soft\r_alias.c" />
+    <ClCompile Include="..\ref_soft\r_bsp.c" />
+    <ClCompile Include="..\ref_soft\r_draw.c" />
+    <ClCompile Include="..\ref_soft\r_edge.c" />
+    <ClCompile Include="..\ref_soft\r_image.c" />
+    <ClCompile Include="..\ref_soft\r_light.c" />
+    <ClCompile Include="..\ref_soft\r_main.c" />
+    <ClCompile Include="..\ref_soft\r_misc.c" />
+    <ClCompile Include="..\ref_soft\r_model.c" />
+    <ClCompile Include="..\ref_soft\r_part.c" />
+    <ClCompile Include="..\ref_soft\r_poly.c" />
+    <ClCompile Include="..\ref_soft\r_polyse.c" />
+    <ClCompile Include="..\ref_soft\r_rast.c" />
+    <ClCompile Include="..\ref_soft\r_scan.c" />
+    <ClCompile Include="..\ref_soft\r_sprite.c" />
+    <ClCompile Include="..\ref_soft\r_surf.c" />
+    <ClCompile Include="..\server\sv_ccmds.c" />
+    <ClCompile Include="..\server\sv_ents.c" />
+    <ClCompile Include="..\server\sv_game.c" />
+    <ClCompile Include="..\server\sv_init.c" />
+    <ClCompile Include="..\server\sv_main.c" />
+    <ClCompile Include="..\server\sv_send.c" />
+    <ClCompile Include="..\server\sv_user.c" />
+    <ClCompile Include="..\server\sv_world.c" />
+    <ClCompile Include="..\sound\snd_sdl.c" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

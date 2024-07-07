@@ -1125,6 +1125,7 @@ void R_PolygonCalculateGradients (void)
 */
 static void R_DrawPoly( qboolean iswater )
 {
+	return;
 	int			i, nump;
 	float		ymin, ymax;
 	emitpoint_t	*pverts;

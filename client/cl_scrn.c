@@ -484,6 +484,18 @@ void SCR_DrawLoading (void)
 	re.DrawPic ((viddef.width-w)/2, (viddef.height-h)/2, "loading");
 }
 
+extern cvar_t	*cg_drawfps;
+extern int avarage_Fps;
+void SCR_DrawFPS (void)
+{
+	if (!cg_drawfps->value)
+		return;
+		
+	char fps[16];
+	sprintf(fps, "%d FPS", avarage_Fps);
+	DrawString(0, 0, fps);
+}
+
 //=============================================================================
 
 /*
@@ -1395,6 +1407,8 @@ void SCR_UpdateScreen (void)
 			M_Draw ();
 
 			SCR_DrawLoading ();
+
+			SCR_DrawFPS();
 		}
 	}
 	re.EndFrame();

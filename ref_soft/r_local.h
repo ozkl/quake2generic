@@ -791,7 +791,7 @@ void	R_CinematicSetPalette( const unsigned char *palette );
 
 extern unsigned d_8to24table[256]; // base
 
-void    Sys_MakeCodeWriteable (unsigned long startaddr, unsigned long length);
+void    Sys_MakeCodeWriteable (size_t startaddr, size_t length);
 void    Sys_SetFPCW (void);
 
 void LoadPCX (char *filename, byte **pic, byte **palette, int *width, int *height);

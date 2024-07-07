@@ -43,6 +43,10 @@ cvar_t	*timescale;
 cvar_t	*fixedtime;
 cvar_t	*logfile_active;	// 1 = buffer log, 2 = flush after each print
 cvar_t	*showtrace;
+
+
+extern //because dedicated also exists in game
+
 cvar_t	*dedicated;
 
 FILE	*logfile;

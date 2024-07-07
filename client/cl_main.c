@@ -48,6 +48,8 @@ cvar_t	*cl_predict;
 cvar_t	*cl_maxfps;
 cvar_t	*cl_gun;
 
+cvar_t	*cg_drawfps;
+
 cvar_t	*cl_add_particles;
 cvar_t	*cl_add_lights;
 cvar_t	*cl_add_entities;
@@ -1438,6 +1440,8 @@ void CL_InitLocal (void)
 //	cl_minfps = Cvar_Get ("cl_minfps", "5", 0);
 	cl_maxfps = Cvar_Get ("cl_maxfps", "90", 0);
 
+	cg_drawfps = Cvar_Get ("cg_drawfps", "1", 0);
+
 	cl_upspeed = Cvar_Get ("cl_upspeed", "200", 0);
 	cl_forwardspeed = Cvar_Get ("cl_forwardspeed", "200", 0);
 	cl_sidespeed = Cvar_Get ("cl_sidespeed", "200", 0);
@@ -1667,6 +1671,22 @@ void CL_SendCommand (void)
 	CL_CheckForResend ();
 }
 
+int fps_FrameCount = 0;
+int fps_CurrentTime = 0;
+int fps_PreviousTime = 0;
+int avarage_Fps = 0;
+void calculateFPS(void)
+{
+    fps_FrameCount++;
+    int currentTime = Sys_Milliseconds();
+    float elapsedSeconds = (currentTime - fps_PreviousTime) / 1000.0f;
+
+    if (elapsedSeconds >= 1.0) {
+        avarage_Fps = fps_FrameCount / elapsedSeconds;
+        fps_FrameCount = 0;
+        fps_PreviousTime = currentTime;
+    }
+}
 
 /*
 ==================
@@ -1694,6 +1714,11 @@ void CL_Frame (int msec)
 
 	// let the mouse activate or deactivate
 	IN_Frame ();
+
+	if (cg_drawfps->value)
+	{
+		calculateFPS();
+	}
 
 	// decide the simulation time
 	cls.frametime = extratime/1000.0;

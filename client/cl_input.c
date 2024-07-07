@@ -459,6 +459,9 @@ void CL_SendCmd (void)
 	usercmd_t	nullcmd;
 	int			checksumIndex;
 
+	//TODO: check
+	SZ_Init(&buf, data, sizeof(data));
+
 	// build a command even if not connected
 
 	// save this command off for prediction

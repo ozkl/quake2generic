@@ -260,7 +260,7 @@ float Q_fabs (float f)
 	return * ( float * ) &tmp;
 #endif
 }
-
+/*
 #if defined _M_IX86 && !defined C_ONLY
 #pragma warning (disable:4035)
 __declspec( naked ) long Q_ftol( float f )
@@ -273,7 +273,7 @@ __declspec( naked ) long Q_ftol( float f )
 }
 #pragma warning (default:4035)
 #endif
-
+*/
 /*
 ===============
 LerpAngle

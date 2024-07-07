@@ -49,24 +49,7 @@ D_Patch
 */
 void D_Patch (void)
 {
-#if id386
-	extern void D_Aff8Patch( void );
-	static qboolean protectset8 = false;
-	extern void D_PolysetAff8Start( void );
 
-	if (!protectset8)
-	{
-		Sys_MakeCodeWriteable ((int)D_PolysetAff8Start,
-						     (int)D_Aff8Patch - (int)D_PolysetAff8Start);
-		Sys_MakeCodeWriteable ((long)R_Surf8Start,
-						 (long)R_Surf8End - (long)R_Surf8Start);
-		protectset8 = true;
-	}
-	colormap = vid.colormap;
-
-	R_Surf8Patch ();
-	D_Aff8Patch();
-#endif
 }
 /*
 ================

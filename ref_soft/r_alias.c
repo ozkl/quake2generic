@@ -22,6 +22,9 @@ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 /*
 ** use a real variable to control lerping
 */
+
+#include <stdint.h>
+
 #include "r_local.h"
 
 #define LIGHT_MIN	5		// lowest light value we'll allow, to avoid the
@@ -97,9 +100,9 @@ static aedge_t	aedges[12] = {
 **
 ** Checks a specific alias frame bounding box
 */
-unsigned long R_AliasCheckFrameBBox( daliasframe_t *frame, float worldxf[3][4] )
+uint32_t R_AliasCheckFrameBBox( daliasframe_t *frame, float worldxf[3][4] )
 {
-	unsigned long aggregate_and_clipcode = ~0U, 
+	uint32_t aggregate_and_clipcode = ~0U, 
 		          aggregate_or_clipcode = 0;
 	int           i;
 	vec3_t        mins, maxs;
@@ -143,7 +146,7 @@ unsigned long R_AliasCheckFrameBBox( daliasframe_t *frame, float worldxf[3][4] )
 	{
 		int      j;
 		vec3_t   tmp, transformed;
-		unsigned long clipcode = 0;
+		uint32_t clipcode = 0;
 
 		if ( i & 1 )
 			tmp[0] = mins[0];
@@ -188,7 +191,7 @@ unsigned long R_AliasCheckFrameBBox( daliasframe_t *frame, float worldxf[3][4] )
 
 qboolean R_AliasCheckBBox (void)
 {
-	unsigned long ccodes[2] = { 0, 0 };
+	uint32_t ccodes[2] = { 0, 0 };
 
 	ccodes[0] = R_AliasCheckFrameBBox( r_thisframe, aliasworldtransform );
 
@@ -265,7 +268,7 @@ void R_AliasPreparePoints (void)
 
 	// put work vertexes on stack, cache aligned
 	pfinalverts = (finalvert_t *)
-			(((long)&finalverts[0] + CACHE_SIZE - 1) & ~(CACHE_SIZE - 1));
+			(((size_t)&finalverts[0] + CACHE_SIZE - 1) & ~(CACHE_SIZE - 1));
 
 	aliasbatchedtransformdata.num_points = s_pmdl->num_xyz;
 	aliasbatchedtransformdata.last_verts = r_lastframe->verts;

@@ -8,10 +8,6 @@ int	curtime;
 unsigned	sys_frame_time;
 
 
-void Sys_mkdir (char *path)
-{
-}
-
 void Sys_Error (char *error, ...)
 {
 	va_list		argptr;

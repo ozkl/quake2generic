@@ -17,6 +17,9 @@ along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 
 */
+
+#include <ctype.h>
+
 #include "q_shared.h"
 
 #define DEG2RAD( a ) ( a * M_PI ) / 180.0F
@@ -260,7 +263,7 @@ float Q_fabs (float f)
 	return * ( float * ) &tmp;
 #endif
 }
-
+/*
 #if defined _M_IX86 && !defined C_ONLY
 #pragma warning (disable:4035)
 __declspec( naked ) long Q_ftol( float f )
@@ -273,7 +276,7 @@ __declspec( naked ) long Q_ftol( float f )
 }
 #pragma warning (default:4035)
 #endif
-
+*/
 /*
 ===============
 LerpAngle
@@ -1179,11 +1182,28 @@ void Com_PageInMemory (byte *buffer, int size)
 // FIXME: replace all Q_stricmp with Q_strcasecmp
 int Q_stricmp (char *s1, char *s2)
 {
+	//TODO: make sure strcasecmp implementation below
+	while (*s1 && *s2)
+	{
+        char c1 = tolower((unsigned char)*s1);
+        char c2 = tolower((unsigned char)*s2);
+        
+        if (c1 != c2) {
+            return c1 - c2;
+        }
+        
+        s1++;
+        s2++;
+    }
+    
+    return tolower((unsigned char)*s1) - tolower((unsigned char)*s2);
+	/*
 #if defined(WIN32)
 	return _stricmp (s1, s2);
 #else
 	return strcasecmp (s1, s2);
 #endif
+	*/
 }
 
 

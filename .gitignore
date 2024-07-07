@@ -1,0 +1,8 @@
+*.DS_Store
+.vscode
+build/
+.vs
+baseq2*
+x64
+Debug
+Release

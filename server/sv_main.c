@@ -44,6 +44,9 @@ cvar_t *sv_airaccelerate;
 
 cvar_t	*sv_noreload;			// don't reload level state when reentering
 
+
+extern //because maxclients also exists in game
+
 cvar_t	*maxclients;			// FIXME: rename sv_maxclients
 cvar_t	*sv_showclamp;
 
