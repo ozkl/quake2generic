@@ -12,8 +12,11 @@
 #include <sys/uio.h>
 #include <errno.h>
 
+
 #ifdef __APPLE__
 #include <libc.h>
+#else
+#include <arpa/inet.h>
 #endif
 
 netadr_t	net_local_adr;

@@ -1,6 +1,4 @@
 
-SDL_CFLAGS = `sdl2-config --cflags`
-SDL_LIBS = `sdl2-config --cflags --libs` -lSDL2_mixer
 
 MOUNT_DIR=.
 
@@ -18,7 +16,7 @@ GAME_DIR=$(MOUNT_DIR)/game
 CTF_DIR=$(MOUNT_DIR)/ctf
 XATRIX_DIR=$(MOUNT_DIR)/xatrix
 
-CC=clang #emcc
+CC=soso-clang
 BASE_CFLAGS=-Dstricmp=strcasecmp
 
 
@@ -30,9 +28,6 @@ DEBUG_CFLAGS=$(BASE_CFLAGS) -g
 LDFLAGS=-ldl -lm
 XCFLAGS=-I/opt/X11/include
 
-GLLDFLAGS=-L/usr/X11/lib -L/usr/local/lib \
-	$(SDL_LIBS) -lGL
-GLCFLAGS=$(SDL_CFLAGS)
 
 SHLIBEXT=so
 
@@ -41,7 +36,7 @@ SHLIBLDFLAGS=-shared
 
 DO_CC=$(CC) $(CFLAGS) -o $@ -c $<
 DO_SHLIB_CC=$(CC) $(CFLAGS) $(SHLIBCFLAGS) -o $@ -c $<
-DO_GL_SHLIB_CC=$(CC) $(CFLAGS) $(SHLIBCFLAGS) $(GLCFLAGS) $(XCFLAGS) -o $@ -c $<
+DO_GL_SHLIB_CC=$(CC) $(CFLAGS) $(SHLIBCFLAGS) $(XCFLAGS) -o $@ -c $<
 
 #############################################################################
 # SETUP AND BUILD
@@ -68,7 +63,7 @@ createdirs:
 		$(BUILDDIR)/game
 
 
-TARGETS: $(BUILDDIR)/quake2-soft $(BUILDDIR)/quake2-gl
+TARGETS: $(BUILDDIR)/quake2
 
 #############################################################################
 # CLIENT/SERVER
@@ -204,33 +199,17 @@ REF_SOFT_OBJS = \
 
 
 REF_SOFT_SDL_OBJS = \
-	$(BUILDDIR)/ref_soft/port_soft_sdl.o
+	$(BUILDDIR)/ref_soft/port_soft_sosofb.o
 
 
 #############################################################################
 # REF_GL
 #############################################################################
 
-REF_GL_OBJS = \
-	$(BUILDDIR)/ref_gl/gl_draw.o \
-	$(BUILDDIR)/ref_gl/gl_image.o \
-	$(BUILDDIR)/ref_gl/gl_light.o \
-	$(BUILDDIR)/ref_gl/gl_mesh.o \
-	$(BUILDDIR)/ref_gl/gl_model.o \
-	$(BUILDDIR)/ref_gl/gl_rmain.o \
-	$(BUILDDIR)/ref_gl/gl_rmisc.o \
-	$(BUILDDIR)/ref_gl/gl_rsurf.o \
-	$(BUILDDIR)/ref_gl/gl_warp.o \
-	\
-	$(BUILDDIR)/ref_gl/qgl_system.o \
-	$(BUILDDIR)/ref_gl/port_gl_sdl.o
 
 
-$(BUILDDIR)/quake2-soft : $(QUAKE2_OBJS) $(GAME_OBJS) $(REF_SOFT_OBJS) $(REF_SOFT_SDL_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(QUAKE2_OBJS) $(GAME_OBJS) $(REF_SOFT_OBJS) $(REF_SOFT_SDL_OBJS) $(LDFLAGS) $(GLLDFLAGS)
-
-$(BUILDDIR)/quake2-gl : $(QUAKE2_OBJS) $(GAME_OBJS) $(REF_GL_OBJS)
-	$(CC) $(CFLAGS) -o $@ $(QUAKE2_OBJS) $(GAME_OBJS) $(REF_GL_OBJS) $(LDFLAGS) $(GLLDFLAGS)
+$(BUILDDIR)/quake2 : $(QUAKE2_OBJS) $(GAME_OBJS) $(REF_SOFT_OBJS) $(REF_SOFT_SDL_OBJS)
+	$(CC) $(CFLAGS) -o $@ $(QUAKE2_OBJS) $(GAME_OBJS) $(REF_SOFT_OBJS) $(REF_SOFT_SDL_OBJS) $(LDFLAGS)
 
 
 $(BUILDDIR)/client/cl_cin.o :     $(CLIENT_DIR)/cl_cin.c
@@ -689,44 +668,7 @@ $(BUILDDIR)/ref_soft/r_sprite.o :     $(REF_SOFT_DIR)/r_sprite.c
 $(BUILDDIR)/ref_soft/r_surf.o :       $(REF_SOFT_DIR)/r_surf.c
 	$(DO_GL_SHLIB_CC)
 
-$(BUILDDIR)/ref_soft/port_soft_sdl.o :       $(MOUNT_DIR)/port_soft_sdl.c
-	$(DO_GL_SHLIB_CC)
-
-#############################################################################
-# REF_GL
-#############################################################################
-
-$(BUILDDIR)/ref_gl/gl_draw.o :        $(REF_GL_DIR)/gl_draw.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_image.o :       $(REF_GL_DIR)/gl_image.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_light.o :       $(REF_GL_DIR)/gl_light.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_mesh.o :        $(REF_GL_DIR)/gl_mesh.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_model.o :       $(REF_GL_DIR)/gl_model.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_rmain.o :       $(REF_GL_DIR)/gl_rmain.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_rmisc.o :       $(REF_GL_DIR)/gl_rmisc.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_rsurf.o :       $(REF_GL_DIR)/gl_rsurf.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/gl_warp.o :        $(REF_GL_DIR)/gl_warp.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/qgl_system.o :      $(REF_GL_DIR)/qgl_system.c
-	$(DO_GL_SHLIB_CC)
-
-$(BUILDDIR)/ref_gl/port_gl_sdl.o :         $(MOUNT_DIR)/port_gl_sdl.c
+$(BUILDDIR)/ref_soft/port_soft_sosofb.o :       $(MOUNT_DIR)/port_soft_sosofb.c
 	$(DO_GL_SHLIB_CC)
 
 
