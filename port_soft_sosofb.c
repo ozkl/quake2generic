@@ -19,18 +19,20 @@
 
 #include <soso.h>
 
-//static SDL_Color colors[256];
-//static SDL_Palette* sdlPalette = NULL;
+typedef struct
+{
+  uint8_t r;
+  uint8_t g;
+  uint8_t b;
+  uint8_t a;
+} Color;
 
+static Color colors[256];
 
 int _old_mouse_buttonstate = 0;
 
 static int _width = 640;
 static int _height = 480;
-
-//static SDL_Surface *_screenSurface = NULL;
-//static SDL_Surface *surface = NULL;
-//static SDL_Window* _window = NULL;
 
 static int FrameBufferFd = -1;
 static int* FrameBuffer = 0;
@@ -86,9 +88,9 @@ static void setupWindow()
     s_ScreenMemory = NULL;
   }
 
-  s_ScreenMemory = malloc(_width * _height * 4);
+  s_ScreenMemory = malloc(_width * _height);
 
-  vid.rowbytes = _width * 4;
+  vid.rowbytes = _width;
   vid.buffer = s_ScreenMemory;
 }
 
@@ -133,7 +135,6 @@ void SWimp_Shutdown( void )
     s_ScreenMemory = NULL;
   }
 
-	//SDL_Quit();
   exit(0);
 }
 
@@ -197,21 +198,15 @@ static qboolean SWimp_InitGraphics( qboolean fullscreen )
 }
 
 void SWimp_SetPalette( const unsigned char *palette )
-{/*
+{
 	for (int i=0; i<256; ++i)
     {
         colors[i].r = *palette++;
         colors[i].g = *palette++;
         colors[i].b = *palette++;
-        colors[i].a = SDL_ALPHA_OPAQUE;
+        colors[i].a = 255;
         palette++;
     }
-    
-    if (sdlPalette)
-    {
-        SDL_SetPaletteColors(sdlPalette, colors, 0, 256);
-        SDL_SetSurfacePalette(surface, sdlPalette);
-    }*/
 }
 
 void SWimp_BeginFrame( float camera_seperation )
@@ -228,14 +223,16 @@ void SWimp_BeginFrame( float camera_seperation )
 */
 void SWimp_EndFrame (void)
 {
-  //SDL_BlitSurface(surface, NULL, _screenSurface, NULL);
-  //SDL_UpdateWindowSurface(_window);
-
     if (FrameBuffer && s_ScreenMemory)
     {
-        for (int i = 0; i < _height; ++i)
+        for (int y = 0; y < _height; ++y)
         {
-            memcpy(FrameBuffer + s_PositionX + (i + s_PositionY) * s_ScreenWidth, s_ScreenMemory + i * _width, _width * 4);
+          for (int x = 0; x < _width; ++x)
+          {
+            uint8_t colorIndex = s_ScreenMemory[y * _width + x];
+
+            FrameBuffer[y * s_ScreenWidth + x] = *(uint32_t*)&colors[colorIndex];
+          }
         }
     }
 }
