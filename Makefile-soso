@@ -20,8 +20,8 @@ CC=soso-clang
 BASE_CFLAGS=-Dstricmp=strcasecmp
 
 
-RELEASE_CFLAGS=$(BASE_CFLAGS) -O6 -ffast-math -funroll-loops \
-	-fomit-frame-pointer -fexpensive-optimizations -malign-loops=2 \
+RELEASE_CFLAGS=$(BASE_CFLAGS) -O3 -ffast-math -funroll-loops \
+	-fomit-frame-pointer -malign-loops=2 \
 	-malign-jumps=2 -malign-functions=2
 
 DEBUG_CFLAGS=$(BASE_CFLAGS) -g

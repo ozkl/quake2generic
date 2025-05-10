@@ -244,9 +244,9 @@ void SWimp_SetPalette( const unsigned char *palette )
 {
 	for (int i=0; i<256; ++i)
     {
-        colors[i].r = *palette++;
-        colors[i].g = *palette++;
         colors[i].b = *palette++;
+        colors[i].g = *palette++;
+        colors[i].r = *palette++;
         colors[i].a = 255;
         palette++;
     }
