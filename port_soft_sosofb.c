@@ -78,6 +78,49 @@ void enableRawMode()
   tcsetattr(STDIN_FILENO, TCSAFLUSH, &raw);
 }
 
+static unsigned char ConvertToQuakeKey(unsigned char scancode);
+
+static void addKeyToQueue(int pressed, unsigned char keyCode)
+{
+	  //printf("key hex %x decimal %d\n", keyCode, keyCode);
+
+    unsigned char key = ConvertToQuakeKey(keyCode);
+
+    unsigned short keyData = (pressed << 8) | key;
+
+    s_KeyQueue[s_KeyQueueWriteIndex] = keyData;
+    s_KeyQueueWriteIndex++;
+    s_KeyQueueWriteIndex %= KEYQUEUE_SIZE;
+}
+
+static void handleKeyInput()
+{
+    if (KeyboardFd < 0)
+    {
+        return;
+    }
+
+    unsigned char scancode = 0;
+
+    if (read(KeyboardFd, &scancode, 1) > 0)
+    {
+        unsigned char keyRelease = (0x80 & scancode);
+
+        scancode = (0x7F & scancode);
+
+        //printf("scancode:%x pressed:%d\n", scancode, 0 == keyRelease);
+
+        if (0 == keyRelease)
+        {
+            addKeyToQueue(1, scancode);
+        }
+        else
+        {
+            addKeyToQueue(0, scancode);
+        }
+    }
+}
+
 /*****************************************************************************/
 
 static void setupWindow()
@@ -211,6 +254,7 @@ void SWimp_SetPalette( const unsigned char *palette )
 
 void SWimp_BeginFrame( float camera_seperation )
 {
+  
 }
 
 
@@ -235,6 +279,8 @@ void SWimp_EndFrame (void)
           }
         }
     }
+
+    handleKeyInput();
 }
 
 
@@ -244,11 +290,52 @@ void SWimp_AppActivate( qboolean active )
 }
 
 
-int ConvertToQuakeKey(unsigned int keysym)
+static unsigned char ConvertToQuakeKey(unsigned char scancode)
 {
-  int key;
-  
-  key = 0;
+  unsigned char key = 0;
+
+    switch (scancode)
+    {
+    case 0x9C:
+    case 0x1C:
+        key = K_ENTER;
+        break;
+    case 0x01:
+        key = K_ESCAPE;
+        break;
+    case 0xCB:
+    case 0x4B:
+        key = K_LEFTARROW;
+        break;
+    case 0xCD:
+    case 0x4D:
+        key = K_RIGHTARROW;
+        break;
+    case 0xC8:
+    case 0x48:
+        key = K_UPARROW;
+        break;
+    case 0xD0:
+    case 0x50:
+        key = K_DOWNARROW;
+        break;
+    case 0x1D:
+        key = K_CTRL;
+        break;
+    case 0x39:
+        //key = KEY_USE;
+        break;
+    case 0x2A:
+    case 0x36:
+        key = K_SHIFT;
+        break;
+    case 0x15:
+        key = 'y';
+        break;
+    default:
+        break;
+    }
+
   /*
   switch(keysym) {
   case SDLK_KP_9:            key = K_KP_PGUP; break;
@@ -333,7 +420,25 @@ int ConvertToQuakeKey(unsigned int keysym)
 }
 
 void HandleInput(void)
-{/*
+{
+  if (s_KeyQueueReadIndex == s_KeyQueueWriteIndex)
+    {
+        //key queue is empty
+
+        return;
+    }
+    else
+    {
+        unsigned short keyData = s_KeyQueue[s_KeyQueueReadIndex];
+        s_KeyQueueReadIndex++;
+        s_KeyQueueReadIndex %= KEYQUEUE_SIZE;
+
+        int pressed = keyData >> 8;
+        int quakeKey = keyData & 0xFF;
+
+        Quake2_SendKey(quakeKey, pressed);
+    }
+  /*
   SDL_Event event;
   
   while (SDL_PollEvent(&event))
