@@ -2,7 +2,10 @@
 The purpose of Quake 2 generic is to make porting Quake 2 easier.
 Now it is possible with just a few functions to port Quake 2 in a single file.
 
-To try it, you will need a baseq2 directory (game data). If you don't own the game, shareware version is freely available.
+To try it, you will need a baseq2 directory (game data).
+
+If you don't own the game, shareware version is freely available. You can search it q2-314-demo-x86.exe. That is a zip file that you can unzip and get the data. Place baseq2/pak0.pak file and you are ready!
+Note that q2_test data is not compatible!
 
 Original game loads both game and renderer library dynamically to support different mods and rendering engines.
 This port embeds these libraries to make porting easier. Because many toy operating systems don't support dynamically loadable libraries (for example: .dll, .so, .dylib).
