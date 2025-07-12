@@ -11,13 +11,14 @@
 #include <fcntl.h>
 #include <unistd.h>
 #include <string.h>
+#include <stdint.h>
 
 #include <sys/ioctl.h>
 #include <sys/mman.h>
+#include <sys/time.h>
 
 #include <termios.h>
 
-#include <soso.h>
 
 typedef struct
 {
@@ -206,7 +207,7 @@ int SWimp_Init( void *hInstance, void *wndProc )
 
         if (FrameBuffer != (int*)-1)
         {
-            printf("FrameBuffer mmap success\n");
+            printf("FrameBuffer mmap success: %p\n", FrameBuffer);
         }
         else
         {
@@ -499,7 +500,12 @@ void HandleInput(void)
 
 int QG_Milliseconds(void)
 {	
-	return get_uptime_ms();//SDL_GetTicks();
+  struct timeval  tp;
+  struct timezone tzp;
+
+  gettimeofday(&tp, &tzp);
+
+  return (tp.tv_sec * 1000) + (tp.tv_usec / 1000); /* return milliseconds */
 }
 
 void QG_GetMouseDiff(int* dx, int* dy)

@@ -16,7 +16,7 @@ GAME_DIR=$(MOUNT_DIR)/game
 CTF_DIR=$(MOUNT_DIR)/ctf
 XATRIX_DIR=$(MOUNT_DIR)/xatrix
 
-CC=soso-clang
+CC=musl-clang
 BASE_CFLAGS=-Dstricmp=strcasecmp
 
 
@@ -25,7 +25,7 @@ RELEASE_CFLAGS=$(BASE_CFLAGS) -O3 -ffast-math -funroll-loops \
 	-malign-jumps=2 -malign-functions=2
 
 DEBUG_CFLAGS=$(BASE_CFLAGS) -g
-LDFLAGS=-ldl -lm
+LDFLAGS=-static -ldl -lm
 XCFLAGS=-I/opt/X11/include
 
 
